@@ -10,6 +10,17 @@ const anuncioSchema = mongoose.Schema({
     tags: Array
 })
 
+// Static Methods
+anuncioSchema.statics.lista = function(filter, skip, limit, fields, sort) {
+    const query = Anuncio.find(filter)
+    query.skip(skip)
+    query.limit(limit)
+    query.select(fields)
+    query.sort(sort)
+    return query.exec()
+}
+
+
 const Anuncio = mongoose.model('Anuncio', anuncioSchema)
 
 module.exports = Anuncio

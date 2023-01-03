@@ -17,6 +17,18 @@ router.get('/', async (req, res, next) => {
 })
 
 
+// GET /api/agentes/(id)
+router.get('/:id', async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const anuncio = await Anuncio.findById(id)
+        res.json({ result: anuncio })
+    } catch (err) {
+        next(err)
+    }
+})
+
+
 // PUT /api/anuncios/(id)
 router.put('/:id', async (req, res, next) => {
     try {
@@ -33,12 +45,13 @@ router.put('/:id', async (req, res, next) => {
 
 
 // POST /api/anuncios
-router.post('/', async (req, res, next) =>{
+router.post('/', async (req, res, next) => {
     try {
         const anuncioData = req.body
         const anuncio = new Anuncio(anuncioData)
         const anuncioSaved = await anuncio.save()
         res.json({ result: anuncioSaved })
+        
     } catch (err) {
         next(err)
     }
