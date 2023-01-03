@@ -4,10 +4,10 @@ const mongoose = require("mongoose");
 
 const anuncioSchema = mongoose.Schema({
     name: {type: String, unique: true},
-    sale: {type: Boolean, unique: true},
-    price: {type: Number, unique: true},
-    photo: {type: String, unique: true},
-    tags: {type: Array, unique: true}
+    sale: {type: Boolean, unique: false},
+    price: {type: Number, unique: false},
+    photo: {type: String, unique: false},
+    tags: {type: Array, unique: false}
 })
 
 // Static Methods
