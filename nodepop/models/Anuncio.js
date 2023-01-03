@@ -4,10 +4,10 @@ const mongoose = require("mongoose");
 
 const anuncioSchema = mongoose.Schema({
     name: String,
-    available: String,
+    sale: Boolean,
     price: Number,
     photo: String,
-    tag: String
+    tags: Array
 })
 
 const Anuncio = mongoose.model('Anuncio', anuncioSchema)

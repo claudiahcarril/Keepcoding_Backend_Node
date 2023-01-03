@@ -6,11 +6,17 @@ var logger = require('morgan');
 
 // Conectando a Moongose
 require('./lib/connectMongoose')
+require('./routes/api/anuncios')
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+/* API ROUTES*/
+app.use('/api/anuncios', require('./routes/api/anuncios'))
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +38,20 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
+
+    if (err.array) {
+      err.status = 422    
+      const errorInfo = err.array({ onlyFirstError: true })[0]
+      console.log(errorInfo)
+      err.message = `Error in ${errorInfo.location}, param "${errorInfo.param}" ${errorInfo.msg}`
+    }
+    
+    res.status(err.status || 500);
+    if (req.originalUrl.startsWith('/api/')) {
+      res.json({ error: err.message})
+      return
+    }
+
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
