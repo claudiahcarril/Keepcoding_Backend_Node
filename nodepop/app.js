@@ -45,7 +45,6 @@ app.use(function(err, req, res, next) {
       console.log(errorInfo)
       err.message = `Error in ${errorInfo.location}, param "${errorInfo.param}" ${errorInfo.msg}`
     }
-    
     res.status(err.status || 500);
     if (req.originalUrl.startsWith('/api/')) {
       res.json({ error: err.message})
