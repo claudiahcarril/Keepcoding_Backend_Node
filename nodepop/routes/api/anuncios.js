@@ -36,6 +36,15 @@ router.get('/', async (req, res, next) => {
         if (name) {
             filtro.name = name
         }
+        if (sale) {
+            filtro.sale = sale
+        }
+        if (price) {
+            filtro.price = price
+        }
+        if (tag) {
+            filtro.tag = tag
+        }
 
 
         const anuncios = await Anuncio.lista(filtro, skip, limit, fields, sort)
@@ -54,6 +63,7 @@ router.get('/:id', async (req, res, next) => {
         const id = req.params.id
         const anuncio = await Anuncio.findById(id)
         res.json({ result: anuncio })
+        console.log(req.body)
     } catch (err) {
         next(err)
     }
@@ -65,10 +75,14 @@ router.put('/:id', async (req, res, next) => {
     try {
         const id = req.params.id
         const anuncioData = req.body
+        console.log(req.params.id)
+        console.log(req.body)
         const anuncioUpdated = await Anuncio.findOneAndUpdate({ _id: id}, anuncioData, {
             new: true
         })
         res.json({ result: anuncioUpdated })
+        // console.log(anuncioUpdated)
+
     } catch (err) {
         next(err)
     }
@@ -79,9 +93,14 @@ router.put('/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
         const anuncioData = req.body
+        
+        console.log(anuncioData)
+        
         const anuncio = new Anuncio(anuncioData)
         const anuncioSaved = await anuncio.save()
         res.json({ result: anuncioSaved })
+        
+        console.log(`Anuncio creado: ${anuncioSaved} `)
 
     } catch (err) {
         next(err)

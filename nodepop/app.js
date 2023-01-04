@@ -3,6 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const bp = require('body-parser')
+
+
 
 // Conectando a Moongose
 require('./lib/connectMongoose')
@@ -16,6 +19,12 @@ var app = express();
 
 /* API ROUTES*/
 app.use('/api/anuncios', require('./routes/api/anuncios'))
+
+
+
+app.use(bp.json())
+app.use(bp.urlencoded({ extended: true }))
+
 
 
 // view engine setup
