@@ -2,11 +2,13 @@ const readline = require('readline')
 const connection = require('./lib/connectMongoose')
 const Anuncio = require('./models/Anuncio')
 
+const anunciosJson = require('./anuncios.json')
+
 // Main asynchronous function
 async function main() {
 
     // Ask the user if they are sure
-    const continueDelete = await answerYesOrNo('¿Estás seguro que quieres borrar la base de datos? [n]')
+    const continueDelete = await answerYesOrNo('¿Estás seguro que quieres borrar la base de datos? [y/n]')
     if (!continueDelete) {
         process.exit()
     }
@@ -23,11 +25,7 @@ async function initAnuncios() {
     console.log(`Eliminados ${result.deletedCount} anuncios`)
 
     // create starter ads
-    const inserted = await Anuncio.insertMany([
-        { name: "Bicicleta", sale: true, price: 120, photo:"bici.jpg", tags:["motor"]},
-        { name: "iPhone 3G", sale: false, price: 500, photo:"iphone.png", tags:["work","mobile"]},
-        { name: "PlayStation 4", sale: true, price: 250, photo:"playstation.jpg", tags:["lifestyle"]}
-    ])
+    const inserted = await Anuncio.insertMany(anunciosJson.anuncios)
     console.log(`Creados ${inserted.length} anuncios`)
 }
 

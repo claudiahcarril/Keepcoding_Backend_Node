@@ -7,14 +7,14 @@ const express = require('express')
 var createError = require('http-errors')
 const router = express.Router()
 
-router.get('/', async (req, res, next) => {
-    try {
-        const anuncios = await Anuncio.find()
-        res.json({ results : anuncios })
-    } catch (err){
-        next(err)
-    }
-})
+// router.get('/', async (req, res, next) => {
+//     try {
+//         const anuncios = await Anuncio.find()
+//         res.json({ results : anuncios })
+//     } catch (err){
+//         next(err)
+//     }
+// })
 
 // GET Static Methods
 router.get('/', async (req, res, next) => {

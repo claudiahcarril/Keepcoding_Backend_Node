@@ -1,0 +1,46 @@
+{
+    "anuncios": [
+        {
+            "name": "Bicicleta",
+            "sale": true,
+            "price": 230.15,
+            "photo": "bici.jpg",
+            "tags": [ "lifestyle", "motor"]
+        },
+        {
+            "name": "iPhone 3GS",
+            "sale": false,
+            "price": 500.00,
+            "photo": "iphone.png",
+            "tags": [ "lifestyle", "mobile"]
+        },
+        {
+            "name": "PlayStation 4",
+            "sale": true,
+            "price": 250.00,
+            "photo": "playstation.png",
+            "tags": [ "lifestyle", "game"]
+        },
+        {
+            "name": "Monitor TV",
+            "sale": false,
+            "price": 150.00,
+            "photo": "monitortv.png",
+            "tags": [ "lifestyle", "work"]
+        },
+        {
+            "name": "Auriculares",
+            "sale": true,
+            "price": 30.00,
+            "photo": "auriculares.png",
+            "tags": [ "lifestyle", "work"]
+        },
+        {
+            "name": "Patinete eléctrico",
+            "sale": true,
+            "price": 130.00,
+            "photo": "patinete.png",
+            "tags": [ "motor", "work"]
+        }
+    ]
+}
