@@ -53,6 +53,28 @@ router.get('/', async (req, res, next) => {
 })
 
 
+// GET /api/anuncios/tags
+router.get('/tags', async (req, res, next) => {
+    try {
+        const anuncios = await Anuncio.find()
+        const tags = []
+        for (let index = 0; index < anuncios.length; index++) {
+            const tagsAnuncio = anuncios[index].tags
+            for (let j = 0; j < tagsAnuncio.length; j++) {
+                const tag = tagsAnuncio[j]
+                if (!tags.includes(tag)) {
+                    tags.push(tag)
+                }
+            }
+        }
+
+        res.json({ result: tags })
+
+    } catch(err) {
+        next(err)
+    }
+})
+
 
 // GET /api/anuncios/(id)
 router.get('/:id', async (req, res, next) => {
@@ -67,19 +89,6 @@ router.get('/:id', async (req, res, next) => {
 })
 
 
-// GET /api/anuncios/tags
-router.get('/tags', async (req, res, next) => {
-    try {
-        const tags = req.query.tags
-        console.log(req.query.tags)
-        const tagsFound = await Anuncio.find(tags)
-        res.json({ result: tagsFound })
-        console.log(tagsFound)
-
-    } catch(err) {
-        next(err)
-    }
-})
 
 
 
