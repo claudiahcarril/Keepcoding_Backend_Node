@@ -1,29 +1,22 @@
 'user strict';
 
 // Loading Anuncio model
-const Anuncio = require('../../models/Anuncio')
+var Anuncio = require('../../models/Anuncio')
 
 const express = require('express')
 var createError = require('http-errors')
 const router = express.Router()
 
-// router.get('/', async (req, res, next) => {
-//     try {
-//         const anuncios = await Anuncio.find()
-//         res.json({ results : anuncios })
-//     } catch (err){
-//         next(err)
-//     }
-// })
 
 // GET Static Methods
 router.get('/', async (req, res, next) => {
     try {
         // Static Methods "Lista"
         const name = req.query.name
-        const tag = req.query.tag
+        const tags = req.query.tags
         const sale = req.query.sale
-        const price = req.query.price
+        const minPrice = req.query.minPrice
+        const maxPrice = req.query.maxPrice
 
         const skip = req.query.skip
         const limit = req.query.limit
@@ -34,16 +27,20 @@ router.get('/', async (req, res, next) => {
         const filtro = {}
 
         if (name) {
-            filtro.name = name
+            filtro.name = { $regex: new RegExp(`^${name}`, 'i') }
         }
         if (sale) {
             filtro.sale = sale
         }
-        if (price) {
-            filtro.price = price
+        if (minPrice && maxPrice) {
+            filtro.price = { $gte: minPrice, $lte: maxPrice }
+        } else if (minPrice) {
+            filtro.price = { $gte: minPrice }
+        } else if (maxPrice) {
+            filtro.price = { $lte: maxPrice }
         }
-        if (tag) {
-            filtro.tag = tag
+        if (tags) {
+            filtro.tags = tags
         }
 
 
@@ -57,7 +54,7 @@ router.get('/', async (req, res, next) => {
 
 
 
-// GET /api/agentes/(id)
+// GET /api/anuncios/(id)
 router.get('/:id', async (req, res, next) => {
     try {
         const id = req.params.id
@@ -68,6 +65,22 @@ router.get('/:id', async (req, res, next) => {
         next(err)
     }
 })
+
+
+// GET /api/anuncios/tags
+router.get('/tags', async (req, res, next) => {
+    try {
+        const tags = req.query.tags
+        console.log(req.query.tags)
+        const tagsFound = await Anuncio.find(tags)
+        res.json({ result: tagsFound })
+        console.log(tagsFound)
+
+    } catch(err) {
+        next(err)
+    }
+})
+
 
 
 // PUT /api/anuncios/(id)
@@ -112,9 +125,9 @@ router.post('/', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
     try {
         const id = req.params.id
-        const anuncio = await Anuncio.deleteOne({ id })
-
-        if (!anuncio) {
+        const response = await Anuncio.deleteOne({ _id: id })
+        
+        if (!response.deletedCount) {
             return next(createError(404))
         }
 
@@ -124,6 +137,10 @@ router.delete('/:id', async (req, res, next) => {
     }
 })
 
-
+router.post('/en_el_body', (req, res, next) => {
+    console.log(req.body)
+    res.send('ok')
+  })
+  
 
 module.exports = router

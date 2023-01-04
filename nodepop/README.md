@@ -20,3 +20,18 @@ Start the application in development with:
 npm run dev
 ```
 
+# Endpoints
+GET /api/anuncios
+```
+http://localhost:3000/api/anuncios
+```
+Parameters:
+
+- name= filter by name
+- sale= filter by sale
+- tags= filter by tags
+- minPrice= filter by minim price
+- maxPrice= filter by maximum price
+- &skip= 
+- &limit=
+
