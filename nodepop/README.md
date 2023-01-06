@@ -42,8 +42,8 @@ PUT http://localhost:3000/api/anuncios/:id
 
 DELETE http://localhost:3000/api/anuncios/:id
 
-GET /api/anuncios/tags
+GET TAGS LIST http://localhost:3000/api/anuncios/tags
 
 
 # Photos
-http://localhost:3000/public/images
+- Example: http://localhost:3000/public/images/bici.jpg
