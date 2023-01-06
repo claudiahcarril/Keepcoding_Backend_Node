@@ -40,10 +40,10 @@ POST http://localhost:3000/api/anuncios
 
 PUT http://localhost:3000/api/anuncios/:id
 
-DELETE
+DELETE http://localhost:3000/api/anuncios/:id
 
 GET /api/anuncios/tags
 
 
 # Photos
-http://localhost:3000/public/images.
+http://localhost:3000/public/images
